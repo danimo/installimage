@@ -2458,7 +2458,9 @@ create_btrfs_subvolumes() {
           mp="${BTRFS_SV_MOUNT[$i]}"
           if [ "$pv" == "$vol" ]; then
             debug "creating btrfs subvolume $vol/$sv at $mp on $dev"
+            mkdir -p $(dirname "${tmp_mount}/${sv}")
             btrfs subvolume create "$tmp_mount/$sv" |& debugoutput
+            mkdir -p "${tmp_mount}/${sv}
             entry="$dev $mp btrfs defaults,subvol=$sv 0 0\n"
             entries="$entries$entry"
           fi
